@@ -73,7 +73,7 @@ def fran():
     for i in range(len(pairs)):
         if pairs[i][0] in replacements:
             bars[i].set_color("r")
-    
+            
     plt.show()
     if replacements:
         printReps()

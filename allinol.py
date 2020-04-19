@@ -1,3 +1,4 @@
+from string import ascii_uppercase as alph
 def rev():
     #reverses given string
     inp=input("Enter text to be reversed: \n")
@@ -23,14 +24,26 @@ def solve():
 
 def findThree():
     #Find patterns of three and three characters and counts them
-    text = list(input("Enter message: \n").upper())
+    text = input("Enter message: \n").upper()
     words = {}
-    for i in range(len(text)-2):
-        word = text[i]+text[i+1]+text[i+2]
-        if word in words:
-            words[word] += 1
-        else:
-            words[word] = 1
+    if text[0] == "@":
+        text = list(text)
+        for i in range(len(text)-2):
+            word = text[i]+text[i+1]+text[i+2]
+            if word in words:
+                words[word] += 1
+            else:
+                words[word] = 1
+    else:
+        ''.join([c for c in text if c in alph or c == ' '])
+        text = text.split(" ")
+        
+        for item in text:
+            if len(item) == 3:
+                if item in words:
+                    words[item] += 1
+                else:
+                    words[item] = 1
     
     maxKey = ""
     for k,v in words.items():
