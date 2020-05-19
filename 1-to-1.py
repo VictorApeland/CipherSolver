@@ -1,5 +1,5 @@
 from termcolor import colored
-from string import ascii_uppercase as alphabet
+from string import ascii_uppercase as upperAlphabet
 from matplotlib import pyplot as plt
 
 
@@ -21,7 +21,7 @@ def printText():
         if encodedCharacter in replacements:
             print(replacements[encodedCharacter], end=charSplit)
         else:
-            if charLength == 1 and encodedCharacter not in alphabet:
+            if charLength == 1 and encodedCharacter not in upperAlphabet:
                 # Proboably punctuation or space
                 print(encodedCharacter, end="")
             else:
@@ -32,15 +32,15 @@ def printReps():
     oppositeReplacements = {v: k for k, v in replacements.items()}
     if charLength == 1:
         # Print horizontally
-        print(alphabet)
-        for c in alphabet:
+        print(upperAlphabet)
+        for c in upperAlphabet:
             if c in oppositeReplacements:
                 print(oppositeReplacements[c], end="")
             else:
                 print("-", end="")
     else:
         # Print vertically
-        for c in alphabet:
+        for c in upperAlphabet:
             print(c, end=": ")
             if c in oppositeReplacements:
                 print(oppositeReplacements[c])
@@ -51,7 +51,7 @@ def printReps():
     
 def fran():
     # Frequency analyze
-    characters = encodedCharacters if charLength != 1 else ''.join(c for c in encodedCharacters if c in alphabet)
+    characters = encodedCharacters if charLength != 1 else ''.join(c for c in encodedCharacters if c in upperAlphabet)
     
     frequency = {}
     
@@ -80,7 +80,7 @@ def fran():
 
 
 
-text = input("Paste text: ").upper()
+text = input("Paste text: ")
 
 
 if "$" in text:
@@ -90,6 +90,14 @@ if "$" in text:
     charLength = int(leng)
 
 charSplit = "" if charLength == 1 else " "
+
+caseSensitiveText = False
+if '#' in text:
+    text = text[1:]
+    # Case sensitive
+    caseSensitiveText = True
+else:
+    text = text.upper()
 
 # Split the text up into charLength-sized chunks
 for i in range(0, len(text) - charLength + 1, charLength):
@@ -103,6 +111,7 @@ while run:
     
     ass = input("New assumption: ").upper()
     if "=" not in ass:
+        ass = ass.upper()
         # some command is being called
         if ass == "FRAN":
             # Frequency analyze
@@ -112,7 +121,7 @@ while run:
             encodedCharacters = list(reversed(encodedCharacters))
             printText()
         elif ass == "REVERSE TEXT":
-            # Reverse the entire text, as if the text was reversed after being encoded
+            # Reverse the entire text, as if the text was reversed after being encoded￼
             # This is foolish to use after adding to replacements
             text = text[::-1]
             encodedCharacters = []

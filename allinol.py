@@ -1,3 +1,6 @@
+import collections
+from termcolor import colored
+
 def rev():
     #reverses given string
     inp=input("Enter text to be reversed: \n")
@@ -41,6 +44,44 @@ def findThree():
     words={k: v for k, v in sorted(words.items(), key=lambda item: item[1])}
     print(maxKey,words)
  
+    
+def findVigenereKeyWithLength(n):
+    alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    
+    text = "".join(list(filter(lambda c: c in alphabet, input("paste the text: ").upper())))
+    
+    lists = []
+    for i in range(n):
+        lists.append([])
+        
+    for i in range(0, len(text) - n - (len(text) % n), n):
+        for j in range(n):
+            lists[j].append(text[i+j])
+    
+    print(text)
+    
+    keyE = ""
+    keyT = ""
+    keyA = ""
+    
+    for t in map("".join, lists):
+        print(t)
+        mostCommonCharIndex = alphabet.index(collections.Counter(t).most_common(1)[0][0])
+        keyE += alphabet[(mostCommonCharIndex - 4) % 26]
+        keyT += alphabet[(mostCommonCharIndex - 19) % 26]
+        keyA += alphabet[(mostCommonCharIndex - 0) % 26]
+        
+    print()
+    print("In the parts with e as the most common letter:", keyE)
+    print("In the parts with t as the most common letter:", keyT)
+    print("In the parts with a as the most common letter:", keyA)
+    
+        
+    
+    
+    
+    
+    
 #rev()      
 #solve()
 #findThree()
